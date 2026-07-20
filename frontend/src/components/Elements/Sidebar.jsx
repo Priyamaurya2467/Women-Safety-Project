@@ -52,13 +52,13 @@ function Sidebar() {
             <span>Cab Verification</span>
           </Link>
 
-          <a
-            href="#"
+          <Link
+            to="/sos-center"
             className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-300"
           >
             <Siren className="w-5 h-5 flex-shrink-0" />
             <span>SOS Center</span>
-          </a>
+          </Link>
 
           <a
             href="#"
