@@ -28,21 +28,21 @@ function Sidebar() {
         {/* Top Menu */}
       
 
-          <a
-            href="#"
+          <Link
+            to='/dashboard'
             className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-50 transition-colors duration-300"
           >
             <Home className="w-5 h-5 flex-shrink-0" />
             <span className='text-xs'>Dashboard</span>
-          </a>
+          </Link>
 
-          <a
-            href="#"
+          <Link
+            to='/safe-journey'
             className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-300"
           >
             <Route className="w-5 h-5 flex-shrink-0" />
             <span className='text-xs'>Safe Journey</span>
-          </a>
+          </Link>
 
           <Link
             to="/cab_verification"
@@ -60,21 +60,21 @@ function Sidebar() {
             <span className="text-xs">SOS Center</span>
           </Link>
 
-          <a
-            href="#"
+          <Link
+            to="/community"
             className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-300"
           >
             <Users className="w-5 h-5 flex-shrink-0" />
             <span className="text-xs">Community</span>
-          </a>
+          </Link>
 
-          <a
-            href="#"
+          <Link
+            to='/ai-assistent'
             className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-300"
           >
             <Bot className="w-5 h-5 flex-shrink-0" />
             <span className="text-xs">AI Assistant</span>
-          </a>
+          </Link>
 
            <a
             href="#"

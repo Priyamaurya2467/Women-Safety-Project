@@ -84,7 +84,7 @@ function Verification() {
     </div>
 
     {/* <!-- Item 3 --> */}
-    <div clasName="flex items-start gap-4">
+    <div className="flex items-start gap-4">
 
       <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border-2 border-blue-600 bg-blue-100">
         <div className="h-2 w-2 animate-pulse rounded-full bg-blue-600"></div>
