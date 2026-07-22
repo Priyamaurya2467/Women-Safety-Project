@@ -11,14 +11,14 @@ function Footer() {
                     <p className='text-xs text-gray-400'>©2024 SafeHer Technologies. All rights reserved</p>
                 </div>
                 <div>
-                  <p className='text-xs text-gray-400'>
+                  <div className='text-xs text-gray-400'>
                     <ul className='flex justify-evenly gap-5'>
                       <li>Privacy Policy</li>
                       <li>Terms of Service</li>
                       <li>Security</li>
                       <li>Help Center</li>
                     </ul>
-                  </p>
+                  </div>
                 </div>
             </div>
     </footer>

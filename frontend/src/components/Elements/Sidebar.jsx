@@ -9,10 +9,10 @@ function Sidebar() {
 
 
 
-    <aside className="w-64 h-screen border-r border-gray-200 bg-white p-4 text-gray-700">
+    <nav className="fixed left-0 top-0 z-50 hidden h-screen w-64 flex-col border-r border-gray-200 bg-white px-4 py-6 shadow-sm md:flex">
 
       {/* Logo */}
-      <div className="flex items-center gap-3 mb-8">
+      <div className="mb-10 flex items-center gap-3 mb-8">
         <div className="bg-blue-700 p-2 rounded-xl">
           <ShieldCheck size={22} className="text-white" />
         </div>
@@ -23,17 +23,17 @@ function Sidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex flex-col h-[calc(100%-70px)]">
+      <nav className="flex grow flex-col gap-2">
 
         {/* Top Menu */}
-        <div className="space-y-1 text-xs font-semibold">
+      
 
           <a
             href="#"
-            className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-300"
+            className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-50 transition-colors duration-300"
           >
             <Home className="w-5 h-5 flex-shrink-0" />
-            <span>Dashboard</span>
+            <span className='text-xs'>Dashboard</span>
           </a>
 
           <a
@@ -41,7 +41,7 @@ function Sidebar() {
             className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-300"
           >
             <Route className="w-5 h-5 flex-shrink-0" />
-            <span>Safe Journey</span>
+            <span className='text-xs'>Safe Journey</span>
           </a>
 
           <Link
@@ -49,7 +49,7 @@ function Sidebar() {
             className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-300"
           >
             <ShieldCheck className="w-5 h-5 flex-shrink-0" />
-            <span>Cab Verification</span>
+            <span className="text-xs">Cab Verification</span>
           </Link>
 
           <Link
@@ -57,7 +57,7 @@ function Sidebar() {
             className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-300"
           >
             <Siren className="w-5 h-5 flex-shrink-0" />
-            <span>SOS Center</span>
+            <span className="text-xs">SOS Center</span>
           </Link>
 
           <a
@@ -65,7 +65,7 @@ function Sidebar() {
             className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-300"
           >
             <Users className="w-5 h-5 flex-shrink-0" />
-            <span>Community</span>
+            <span className="text-xs">Community</span>
           </a>
 
           <a
@@ -73,7 +73,7 @@ function Sidebar() {
             className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-300"
           >
             <Bot className="w-5 h-5 flex-shrink-0" />
-            <span>AI Assistant</span>
+            <span className="text-xs">AI Assistant</span>
           </a>
 
            <a
@@ -81,7 +81,7 @@ function Sidebar() {
             className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-300"
           >
             <UsersRound className="w-5 h-5 flex-shrink-0" />
-            <span>Family Dashboard</span>
+            <span className="text-xs">Family Dashboard</span>
           </a>
 
           <hr className="my-4 border-gray-300" />
@@ -91,7 +91,7 @@ function Sidebar() {
             className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-300"
           >
             <Settings className="w-5 h-5 flex-shrink-0" />
-            <span>Profile & Settings</span>
+            <span className="text-xs">Profile & Settings</span>
           </a>
 
           <div className='flex flex-col h-35 justify-between'>
@@ -101,7 +101,7 @@ function Sidebar() {
             className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-300"
           >
             <ChartColumn className="w-5 h-5 flex-shrink-0" />
-            <span>Admin Analytics</span>
+            <span className="text-xs">Admin Analytics</span>
           </a>
 
           <button
@@ -111,10 +111,10 @@ function Sidebar() {
           </button>
 
         </div>
-        </div>
+      
 
         {/* Bottom Section */}
-        <div className="mt-auto text-xs font-semibold mt-1">
+        <div className="mt-auto text-xs font-semibold mt-1 mb-5">
 
           <hr className='text-gray-300'/>
 
@@ -138,7 +138,7 @@ function Sidebar() {
 
       </nav>
 
-    </aside>
+    </nav>
   
     
     </>
