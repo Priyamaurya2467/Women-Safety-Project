@@ -9,6 +9,7 @@ import SOS_Centre from './components/SOS_Centre'
 import Safe_Journey from './components/Safe_Journey'
 import Community from './components/Community'
 import Ai_assistent from './components/Ai_assistent'
+import Family_Dashboard from './components/Family_Dashboard'
 function App() {
   return (
     <>
@@ -22,6 +23,8 @@ function App() {
       <Route path='/safe-journey' element={<Safe_Journey/>} />
       <Route path='/community' element={<Community/>} />
       <Route path='/ai-assistent' element={<Ai_assistent/>}/>
+      <Route path='/family-dashboard' element={<Family_Dashboard/>}/>
+
 
     </Routes>
     </BrowserRouter>
