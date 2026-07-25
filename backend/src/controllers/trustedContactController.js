@@ -1,0 +1,3 @@
+exports.trustedContact=(req,res)=>{
+
+}
