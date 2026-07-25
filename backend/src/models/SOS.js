@@ -1,10 +1,22 @@
 const mongoose = require("mongoose")
 
+
 const sos = new mongoose.Schema({
 
-      userId: ObjectId,
+      userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+      },
 
-  tripId: ObjectId,
+  tripId: {
+
+
+        type: mongoose.Schema.Types.ObjectId,
+
+        ref: "trip"
+
+
+  },
 
   emergencyType: String,
 
@@ -19,16 +31,28 @@ const sos = new mongoose.Schema({
       enum: [
           "ACTIVE",
           "RESPONDED",
-          "RESOLVED"
-      ]
+          "RESOLVED",
+          "CANCELLED"
+      ],
+      default: "ACTIVE"
   },
 
-  notifiedContacts: [ObjectId],
+   notifiedContacts: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "TrustedContact",
+        },
+    ],
 
-  responseTime: Number,
+  responseTime: {
+    type: Number,
+    default: 0
+  },
 
   createdAt: Date
 
+},{
+    timestamps: true
 })
 
 

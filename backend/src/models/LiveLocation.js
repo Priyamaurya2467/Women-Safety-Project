@@ -1,9 +1,15 @@
 const mongoose = require("mongoose")
-const livelocation = new mongoose.Schema({
+const livelocationSchema = new mongoose.Schema({
 
-    userId: ObjectId,
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user"
+    },
 
-  tripId: ObjectId,
+  tripId:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "trip"
+    },
 
   latitude: Number,
 
@@ -21,6 +27,8 @@ const livelocation = new mongoose.Schema({
 
   timestamp: Date
 
+},{
+  timestamps:true
 })
 
-module.exports = mongoose.model("livesocation",livelocation);
+module.exports = mongoose.model("livelocation",livelocationSchema);
