@@ -7,8 +7,8 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}));
 app.use(cors())
 
-app.get("/" , (req,res) => {
-    res.send("Welcome to the API");
-});
-
+const authRoutes = require("./routes/authRoutes");
+const userRoutes = require('./routes/userRoutes')
+app.use("/api/auth", authRoutes);
+app.use("/api/users",userRoutes);
 module.exports = app;
