@@ -4,7 +4,12 @@ const mongoose = require("mongoose");
 const community = new mongoose.Schema({
 
     
-  reportedBy: ObjectId,
+  reportedBy: [
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    }
+  ],
 
   category: String,
 
@@ -35,6 +40,8 @@ const community = new mongoose.Schema({
 
   createdAt: Date
 
+},{
+    timestamps: true
 })
 
 

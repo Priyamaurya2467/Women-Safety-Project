@@ -1,28 +1,98 @@
 const mongoose = require("mongoose")
 const cabVeri = new mongoose.Schema({
 
-      tripId: ObjectId,
+      tripId: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "trip",
+          default: null
+        }
+      ],
 
-  userId: ObjectId,
+  userId: [
+    {
 
-  vehicleNumber: String,
+         type: mongoose.Schema.Types.ObjectId,
+         ref: "user",
+         default: true
 
-  vehicleModel: String,
+    }
+  ],
 
-  vehicleColor: String,
+  vehicleNumber: [
+    {
+      type: String,
+      required: true,
+      trim: true,
+      uppercase: true
+    }
 
-  driverName: String,
+  ],
 
-  driverPhone: String,
+  vehicleModel: [
+    {
 
-  driverPhoto: String,
+    type: String,
+      required: true,
+      trim: true,
+    }
+  ],
 
-  qrCode: String,
+  vehicleColor: [
+    {
+      type: String,
+      required: true,
+     
+    }
+  ],
 
-  verificationStatus: String,
+  driverName: [
+    {
+      type: String,
+      required: true,
+      trim: true,
+    }
+  ],
 
-  verifiedAt: Date
+  driverPhone: [
+    {
+      type: String,
+      required: true,
+      
+    }
+  ],
 
+  driverPhoto: [
+    {
+      type: String,
+      default: ""
+    }
+  ],
+
+  qrCode: [
+    {
+       type: String,
+       default: ""
+    }
+  ],
+
+  verificationStatus: [
+    {
+      type: String,
+      enum: ["PENDING", "VERIFIED", "FAILED"],
+      default: "PENDING",
+    }
+  ],
+
+  verifiedAt: [
+    {
+      type: Date,
+      default: true
+    }
+  ]
+
+},{
+  timestamps: true,
 })
 
 module.exports = mongoose.model("cabverification",cabVeri)

@@ -1,11 +1,18 @@
-const { ObjectId } = require("mongodb");
+
 const mongoose = require("mongoose");
 
 const evidence= new mongoose.Schema({
 
-     sosId: ObjectId,
+     sosId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "sos",
+        
+     },
 
-  uploadedBy: ObjectId,
+  uploadedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user"
+  },
 
   fileType: {
       type: String,
@@ -22,6 +29,8 @@ const evidence= new mongoose.Schema({
 
   uploadedAt: Date
 
+},{
+    timestamps: true
 })
 
 
