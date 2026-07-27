@@ -12,6 +12,7 @@ import Ai_assistent from './components/Ai_assistent'
 import Family_Dashboard from './components/Family_Dashboard'
 import ProtectedRoute from './components/ProtectedRoutes'
 import Profile_Page from './components/Profile_Page'
+import TrustedContact from './components/Pages/TrustedContact/TrustedContact'
 function App() {
   return (
     <>
@@ -41,8 +42,12 @@ function App() {
       <Route path='/family-dashboard' element={
         <ProtectedRoute><Family_Dashboard/></ProtectedRoute>
       }/>
-      <Route path='settings' element={
+      <Route path='/settings' element={
         <ProtectedRoute><Profile_Page/></ProtectedRoute>
+      }/>
+
+      <Route path='/trusted-contact' element={
+        <ProtectedRoute><TrustedContact/></ProtectedRoute>
       }/>
 
 

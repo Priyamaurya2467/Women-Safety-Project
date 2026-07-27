@@ -1,46 +1,76 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Phone, Users } from "lucide-react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function EmergencyContactCard() {
+  const navigate = useNavigate()
+  const [contacts,setContacts] = useState([]);
+  useEffect(()=>{
+    getTrustedContacts();
+  },[]);
+  const getTrustedContacts = async() => {
+    const res = await axios.get("/api/trusted-contact");
+
+    if(res.data.success){
+      setContacts(res.data.data)
+    }
+  }
   return (
-    <div className="col-span-12 md:col-span-5 bg-blue-600 text-white p-6 rounded-xl shadow-sm">
+   <>
 
-      {/* Heading */}
-      <div className="flex items-center gap-2 mb-5">
-        <Users size={22} />
-        <h4 className="text-lg font-semibold">
-          Primary Contact
-        </h4>
+   <div className="text-2xl font-bold mb-6">
+    <h1 className="text-2xl font-bold mb-6">
+      Trusted Contacts
+    </h1>
+
+    {contacts.length === 0 ? (
+      <div className="border rounded-xl p-8 text-center">
+        <h2 className="text-lg font-semibold">
+            No Trusted Contacts
+        </h2>
+        <p className="text-gray-500 mt-2">
+            Add trusted contacts so they can recieve emergency alerts.
+        </p>
+
+        <button 
+          onClick={()=>navigate('/trusted-contact')}
+          className="mt-5 px-5 py-2 bg-blue-600 text-white rounded-lg"
+        >
+          + Add Trusted Contact
+        </button>
       </div>
-
-      {/* Contact */}
-      <div className="flex items-center gap-4">
-
-        <img
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuM64IWegOC5fDSjj_a2pB_m0vTxK5BrO7P-_rMUUIRCWj5zZDUaZU5A1nuhriEd8BF-ZeQ26WyODIXgT_4yNCuBenjEg6vWzzNW7LvCBf36iI3n7fEWtctVeGW7JgKzTR0yG7Irh0_Snreqh3b-lDnDw2_tJ432lEdKKsacY762LQxA2oOEu7IvH-fMMWpjg6ikBBa3YFFFCsEjD8R-rkx8PlJyikkix_JvEXBHWh9PPwLAA7KtmwVFnhs09wImsAy-lr7KBgxtjm"
-          alt="Emergency Contact"
-          className="w-14 h-14 rounded-full border-2 border-white object-cover"
-        />
-
-        <div>
-          <h5 className="font-semibold text-lg">
-            Robert Williams
-          </h5>
-
-          <div className="flex items-center gap-2 text-blue-100 mt-1">
-            <Phone size={15} />
-            <span>Husband • +1 (555) 998-1234</span>
-          </div>
+    ):(
+      <>
+        <button 
+          onClick={()=>navigate('/trusted-contact')}
+          className="mt-5 px-5 py-2 bg-blue-600 text-white rounded-lg"
+        >
+          + Add Trusted Contact
+        </button>
+        <div className="space-y-4">
+            {contacts.map((contact) => (
+              <div
+                key={contact._id}
+                className="border rounded-xl p-4 shadow-sm"
+              >
+                <h2 className="font-semibold">{contact.name}</h2>
+                <p className="font-semibold">{contact.relationship}</p>
+                <p>{contact.relationship}</p>
+                <p>{contact.Phone}</p>
+              </div>
+            ))}
         </div>
+      </>
+    )}
 
-      </div>
+    
 
-      {/* Button */}
-      <button className="mt-8 w-full border border-white/30 bg-white/10 hover:bg-white/20 transition rounded-lg py-3 font-medium">
-        Manage Contacts
-      </button>
+   </div>
+   
 
-    </div>
+   
+   </>
   );
 }
 

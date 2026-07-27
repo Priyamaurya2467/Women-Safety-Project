@@ -41,7 +41,7 @@ const addContacts = async(req,res) => {
         })
     }
 }
-const getContacts = async(req,res)=> {
+const fetchContacts = async(req,res)=> {
     try{
         const contacts = await trustedContact.find({
             userId: req.user.id

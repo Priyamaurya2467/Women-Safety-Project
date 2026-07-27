@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { Camera ,User,Mail,Phone,Venus,Calendar,Droplets,MapPin} from "lucide-react";
 import EmergencyContactCard from "./EmergencyContactCard";
 import pfp from "../../../assets/pfp.jpg"
-
+import { useTrustedContacts } from "../../../Context/TrustedContactContext";
 function ProfileCard({profile,updateProfile,isEditing,setIsEditing}) {
   const fileInputRef = useRef(null) 
   const handleImageChange = (e) => {
@@ -21,6 +21,7 @@ function ProfileCard({profile,updateProfile,isEditing,setIsEditing}) {
     }
 
   };
+  const [contacts,setContacts] = useTrustedContacts()
   return (
     <div className="grid grid-cols-12 gap-6">
 
@@ -106,7 +107,7 @@ function ProfileCard({profile,updateProfile,isEditing,setIsEditing}) {
           <div>
 
             <p className="text-2xl font-bold text-gray-900">
-              4
+              {contacts.length}
             </p>
 
             <p className="text-sm text-gray-500">
@@ -197,7 +198,7 @@ function ProfileCard({profile,updateProfile,isEditing,setIsEditing}) {
 
       </div>
 
-    </div>
+      </div>
 
 
     <div className="col-span-12 md:col-span-8 bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
