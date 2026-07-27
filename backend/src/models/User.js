@@ -20,6 +20,7 @@ const user = new mongoose.Schema(
         profileImage: String,
         gender: String,
         dob:Date,
+        address:String,
         bloodGroup: String,
         medicalConditions: [String],
         allergies: [String],

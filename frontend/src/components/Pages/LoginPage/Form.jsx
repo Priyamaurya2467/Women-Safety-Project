@@ -1,21 +1,61 @@
 import { ArrowLeft, ArrowRight } from 'lucide-react'
-import React from 'react'
+import React,{useState,useContext} from 'react'
+import { ProfileContext } from '../../../Context/ProfileContext';
+import pfp from '../../../assets/pfp.jpg'
 import Footer from '../../Elements/Footer';
 import Registration from '../../Registration';
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 function Form() {
-    const handlesubmit = (e) => {
-        e.preventDefault();
-        console.log("Form submitted")
+  const {updateProfile} = useContext(ProfileContext)
+  const navigate = useNavigate();
+
+  const [loginData,setLoginData] = useState({
+    email: "",
+    password: ""
+  })
+
+  const handleChange = (e) => {
+    setLoginData({
+      ...loginData,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+
+    try{
+      const res = await axios.post(
+        "http://localhost:5000/api/auth/login",loginData
+      );
+      console.log(res.data)
+      localStorage.setItem("token",res.data.token);
+
+      localStorage.setItem(
+        "user",JSON.stringify(res.data.user)
+      );
+      console.log(res.data.user)
+      updateProfile({
+        name: res.data.user.name,
+        email: res.data.user.email,
+        profileImage: res.data.user.profileImage || pfp
+      })
+      navigate('/dashboard');
+    }catch(err){
+      console.log(err.response)
+      console.log(err.response?.data)
+      alert(err.response?.data?.message || "Login Failed")
     }
-    const navigate = useNavigate()
+  }
+
   return (
     <>
     <div className='flex justify-center items-center p-10  '>
        
         <div className='w-96 border border-gray-400 rounded-xl p-6 shadow-md hover:shadow hover:shadow-gray-500'>
-            <form onSubmit={handlesubmit} className='space-y-6 '>
+            <form onSubmit={handleSubmit} className='space-y-6 '>
                 <div>
                     <p className='text-xl font-semibold'>Sign in to SafeHer</p>
                     <p className="text-sm text-gray-500">
@@ -27,8 +67,11 @@ function Form() {
             <label className="text-sm font-medium">Email Address</label>
             <input
               type="email"
+              name='email'
+              value={loginData.email}
+              onChange={handleChange}
               placeholder="name@company.com"
-              className="border-2 border-gray-300 text-gray-200  rounded-lg px-3 py-2 mt-1 outline-none focus:ring-2 focus:ring-blue-500"
+              className="border-2 border-gray-300 text-gray-900  rounded-lg px-3 py-2 mt-1 outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
            <div className="flex flex-col">
@@ -36,11 +79,14 @@ function Form() {
             <input
               type="password"
               placeholder="********"
+              name='password'
+              value={loginData.password}
+              onChange={handleChange}
               className="border-2 border-gray-300 rounded-lg px-3 py-2 mt-1 outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
             <button
-            onClick={()=>navigate('/dashboard')}
+            type='submit'
             className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
           >
             Sign In

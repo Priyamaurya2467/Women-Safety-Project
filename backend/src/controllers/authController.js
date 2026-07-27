@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 const register = async (req,res) =>{
     try{
         const {
-            fullName,email,phone,password,profileImage,gender,dob,bloodGroup,medicalConditions,allergies,role,firebaseUID,isVerfied,isOnline,createdAt,updatedAt
+            fullName,email,phone,password,profileImage,gender,dob,bloodGroup,address,medicalConditions,allergies,role,firebaseUID,isVerfied,isOnline,createdAt,updatedAt
         } = req.body;
 
         const existingEmail = await User.findOne({email});
@@ -27,7 +27,7 @@ const register = async (req,res) =>{
         }
 
         const user = await User.create({
-            fullName,email,phone,password,profileImage,gender,dob,bloodGroup,medicalConditions,allergies,role,firebaseUID,isVerified:false,isOnline:false
+            fullName,email,phone,password,profileImage,gender,dob,bloodGroup,address,medicalConditions,allergies,role,firebaseUID,isVerified:false,isOnline:false
         })
 
         res.status(201).json({
@@ -70,7 +70,7 @@ const login = async(req,res) => {
         },process.env.JWT_SECRET)
 
         res.status(200).json({
-            success: false,
+            success: true,
             message: "Login Successful",
             token,user
         })

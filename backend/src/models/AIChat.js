@@ -1,16 +1,34 @@
 const { ObjectId } = require('mongodb')
 const mongoose = require('mongoose')
+
 const aichat = new mongoose.Schema({
 
-    userId: ObjectId,
+    userId: 
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "user"
+        }
+    ,
     messages: [
         {
-            role: String,
+            role: {
+                type: String,
+                enum: ["user","assistant"],
+                required: true
+            },
             content: String,
-            timeStamp: Date
+            timeStamp: {
+                type: Date,
+                default: Date.now
+            }
         }
     ],
 
-    createAt: Date
+    
 
+},{
+    timestamps: true
 })
+
+
+module.exports = mongoose.model("AIChat", aichat)

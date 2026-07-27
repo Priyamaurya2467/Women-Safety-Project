@@ -1,6 +1,7 @@
-import React from 'react'
-
+import React, { useContext } from 'react'
+import { ProfileContext } from '../../../Context/ProfileContext'
 function Navbar() {
+  const {profile} = useContext(ProfileContext)
   return (
     <>
 
@@ -51,9 +52,14 @@ function Navbar() {
       {/* Profile */}
       <div className="h-9 w-9 overflow-hidden rounded-full border border-gray-300">
         <img
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuB104ikxNMTum4IJVfVp7WLL5C-nKAMXNfDim6jowg_qTmVu_PqEdC4lv1EQ5zZ25-dbfSuRecd7aW4ur-7tvXALI5_1MfLdm-2zDfjiMhSyjAID8z6Irew86reQ79ho8VZQZd2fz60UPeBlbyWpmppVXGYpv01VhOQ8zp_jv9uoeRFncotj96GpTiRM7p9hkn8ZQLmyqmGH46uBG4nUNbvRlaA5yXiAliuqbUD54kpR5wTJICJXqWsBYMFN57N13-W_1fqbf__aBWm"
-          alt="Profile"
-          className="h-full w-full object-cover"
+          src={profile.profileImage}
+          alt="profile"
+          className="
+            w-10
+            h-10
+            rounded-full
+            object-cover
+          "
         />
       </div>
 

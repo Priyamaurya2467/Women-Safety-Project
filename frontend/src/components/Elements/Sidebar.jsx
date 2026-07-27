@@ -86,13 +86,13 @@ function Sidebar() {
 
           <hr className="my-4 border-gray-300" />
 
-           <a
-            href="#"
+           <Link
+            to="/settings"
             className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-300"
           >
             <Settings className="w-5 h-5 flex-shrink-0" />
             <span className="text-xs">Profile & Settings</span>
-          </a>
+          </Link>
 
           <div className='flex flex-col h-35 justify-between'>
 

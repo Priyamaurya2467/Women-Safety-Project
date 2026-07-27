@@ -10,6 +10,8 @@ import Safe_Journey from './components/Safe_Journey'
 import Community from './components/Community'
 import Ai_assistent from './components/Ai_assistent'
 import Family_Dashboard from './components/Family_Dashboard'
+import ProtectedRoute from './components/ProtectedRoutes'
+import Profile_Page from './components/Profile_Page'
 function App() {
   return (
     <>
@@ -17,16 +19,35 @@ function App() {
     <Routes>
       <Route path='/' element={<Login/>} />
       <Route path='/registration' element={<Registration/>} />
-      <Route path='/dashboard' element={<Dashboard/>} />
-      <Route path='/cab_verification' element={<Cab_Verification/>} />
-      <Route path='/sos-center' element={<SOS_Centre/>} />
-      <Route path='/safe-journey' element={<Safe_Journey/>} />
-      <Route path='/community' element={<Community/>} />
-      <Route path='/ai-assistent' element={<Ai_assistent/>}/>
-      <Route path='/family-dashboard' element={<Family_Dashboard/>}/>
+      
+      <Route path='/dashboard' element = {
+        <ProtectedRoute><Dashboard/></ProtectedRoute>
+      } />       
+      <Route path='/cab_verification' element={
+        <ProtectedRoute><Cab_Verification/></ProtectedRoute>}
+         />
+      <Route path='/sos-center' element={
+        <ProtectedRoute><SOS_Centre/></ProtectedRoute>
+      } />
+      <Route path='/safe-journey' element={
+        <ProtectedRoute><Safe_Journey/></ProtectedRoute>
+      } />
+      <Route path='/community' element={
+        <ProtectedRoute><Community/></ProtectedRoute>
+      } />
+      <Route path='/ai-assistent' element={
+        <ProtectedRoute><Ai_assistent/></ProtectedRoute>
+      }/>
+      <Route path='/family-dashboard' element={
+        <ProtectedRoute><Family_Dashboard/></ProtectedRoute>
+      }/>
+      <Route path='settings' element={
+        <ProtectedRoute><Profile_Page/></ProtectedRoute>
+      }/>
 
 
     </Routes>
+
     </BrowserRouter>
     
     </>

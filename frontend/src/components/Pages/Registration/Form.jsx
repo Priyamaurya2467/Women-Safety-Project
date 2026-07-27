@@ -3,15 +3,54 @@ import { ArrowRight } from 'lucide-react';
 import Footer from '../../Elements/Footer';
 import Logo from '../../Elements/Logo';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
 function Form() {
 
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
-    const handlesubmit = (e) => {
-        
-        e.preventDefault();
-        console.log("Form submitted")
-    }
+  const [formData,setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    password: ""
+  })
+
+  const handleChange = (e) => {
+
+      setFormData({
+          ...formData,
+          [e.target.name]: e.target.value
+      });
+
+  };
+
+  const handlesubmit = async (e) => {
+
+      e.preventDefault();
+
+      try {
+
+          const res = await axios.post(
+              "http://localhost:5000/api/auth/register",
+              formData
+          );
+
+          alert(res.data.message);
+
+          navigate("/");
+
+      } catch (err) {
+
+          alert(err.response?.data?.message || "Something went wrong");
+
+      }
+
+  }
+    
+  
+
+    
     
   return (
     <>
@@ -34,22 +73,47 @@ function Form() {
             <label className="text-sm font-medium">Full Name</label>
             <input
               type="text"
+              name='fullName'
+              value={formData.fullName}
+              onChange={handleChange}
               placeholder="Jane Doe"
               className="border-2 border-gray-300 text-gray-200  rounded-lg px-3 py-2 mt-1 outline-none focus:ring-2 focus:ring-blue-500"
             />
+
+
           
 
           <label className="text-sm font-medium">Email Address</label>
             <input
               type="email"
+              name='email'
+              value={formData.email}
+              onChange={handleChange}
               placeholder="name@company.com"
               className="border-2 border-gray-300 text-gray-200  rounded-lg px-3 py-2 mt-1 outline-none focus:ring-2 focus:ring-blue-500"
             />
+
+            <label className="text-sm font-medium">Phone Number</label>
+            <input
+              type="text"
+              name='phone'
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="123456789"
+              className="border-2 border-gray-300 text-gray-200  rounded-lg px-3 py-2 mt-1 outline-none focus:ring-2 focus:ring-blue-500"
+            />
+
+
           </div>
+
+
            <div className="flex flex-col">
             <label className="text-sm font-medium">Password</label>
             <input
               type="password"
+              name='password'
+              value={formData.password}
+              onChange={handleChange}
               placeholder="*******"
               minLength={8}
               className="border-2 border-gray-300 rounded-lg px-3 py-2 mt-1 outline-none focus:ring-2 focus:ring-blue-500"
@@ -57,11 +121,11 @@ function Form() {
             <span className='text-xs pt-2 text-gray-300'>Must be at least 8 characters.</span>
           </div>
             <button
-            onClick={()=>navigate('/dashboard')}
+            type='submit'
             className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
           >
             Create Account
-            
+            <ArrowRight size={18} />
           </button>
 
           <div className="flex items-center my-4">
@@ -71,6 +135,7 @@ function Form() {
           </div>
 
           <button
+          type='button'
             onClick={() => window.location.href = "https://www.google.com"}
             className="w-full flex items-center justify-center gap-2 font-medium text-xs py-2 rounded-lg transition border-2 border-gray-200 hover:bg-purple-50"
           >
