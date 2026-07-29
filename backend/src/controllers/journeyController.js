@@ -1,116 +1,72 @@
-const Journey = require('../models/Journey')
-const uuidv4 = require('uuid')
-const startJourney = async(req,res)=>{
+const Journey = require("../models/Journey");
+const { v4: uuidv4 } = require("uuid");
 
-try{
+const startJourney = async (req, res) => {
+  try {
+    const {
+      startLocation,
+      destination,
+      distance,
+      estimatedTime,
+    } = req.body;
 
-const{
+    const trackingToken = uuidv4();
 
-startLocation,
-destination,
-distance,
-estimatedTime
+    const journey = await Journey.create({
+      user: req.user.id,
+      trackingToken,
+      startLocation,
+      destination,
+      distance,
+      estimatedTime,
+    });
 
-}=req.body;
+    res.status(201).json({
+      success: true,
+      data: journey,
+      trackingLink: `http://localhost:5173/live/${trackingToken}`,
+    });
 
-const journey=await Journey.create({
+  } catch (error) {
+    console.log(error);
 
-user:req.user.id,
-
-startLocation,
-
-destination,
-
-distance,
-
-estimatedTime
-
-});
-
-res.status(201).json({
-
-success:true,
-
-data:journey
-
-});
-
-}catch(error){
-
-console.log(error);
-
-res.status(500).json({
-
-success:false,
-
-message:error.message
-
-});
-
-}
-
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
 
-const endJourney=async(req,res)=>{
+const endJourney = async (req, res) => {
+  try {
+    const journey = await Journey.findById(req.params.id);
 
-try{
+    if (!journey) {
+      return res.status(404).json({
+        success: false,
+        message: "Journey not found",
+      });
+    }
 
-const journey=await Journey.findById(req.params.id);
+    journey.status = "completed";
+    journey.endedAt = new Date();
 
-if(!journey){
+    await journey.save();
 
-return res.status(404).json({
+    res.json({
+      success: true,
+      data: journey,
+    });
 
-success:false,
-
-message:"Journey not found"
-
-});
-
-}
-
-journey.status="completed";
-
-journey.endedAt=new Date();
-
-await journey.save();
-
-res.json({
-
-success:true,
-
-data:journey
-
-});
-
-}catch(error){
-
-res.status(500).json({
-
-success:false,
-
-message:error.message
-
-});
-
-}
-
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
 
-const trackingToken = uuidv4();
-
-const journey= await Journey.create({
-    user: req.user.id,
-    trackingToken,
-    startLocation,destination,distance,estimatedTime
-
-    
-})
-
-res.status(201).json({
-    success:true,
-    date: journey,
-    trackingLink: `https://localhost:5173/${trackingToken}`
-})
-
-module.exports = {startJourney,endJourney}
+module.exports = {
+  startJourney,
+  endJourney,
+};

@@ -42,6 +42,10 @@ delete L.Icon.Default.prototype._getIconUrl;
 
       useEffect(()=>{
 
+        if(destination){
+          searchDestination(destination)
+        }
+
 
         navigator.geolocation.getCurrentPosition(
           (position)=>{
@@ -63,16 +67,16 @@ delete L.Icon.Default.prototype._getIconUrl;
         );
 
 
-      },[]);
+      },[destination]);
 
 
       // Search destination
 
-      const searchDestination = async()=>{
+      const searchDestination = async(searchText)=>{
           try{
               const res = await axios.get("https://nominatim.openstreetmap.org/search",{
                 params: {
-                  q: destination,
+                  q: searchText,
                   format: "json",
                   limit:1
                 }

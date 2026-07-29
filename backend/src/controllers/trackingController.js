@@ -14,7 +14,15 @@ const getLiveTracking = async(req,res) =>{
             })
         }
         const location = await Location.findOne({
-            user.journey.user
+            user:journey.user
+        });
+        res.json({
+            success:true,journey,location
+        })
+    }catch(err){
+        res.status(500).json({
+            success:false,
+            message:err.message
         })
     }
 }

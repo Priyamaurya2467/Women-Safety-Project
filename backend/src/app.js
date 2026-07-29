@@ -23,6 +23,7 @@ const emergencyRoute = require('./routes/emergencyRoutes')
 const emergencyNumberRouter = require('./routes/emergencyNumber')
 const locationRoutes = require('./routes/locationRoutes')
 const journeyRoutes = require('../src/routes/journeyRoutes')
+const safetyRoutes = require('../src/routes/safetyRoutes')
 app.use("/api/auth", authRoutes);
 app.use("/api/user",userRoutes);
 app.use("/api/contacts",trustedContactRoutes)
@@ -37,6 +38,7 @@ app.use('/api/emergency',emergencyRoute)
 app.use('/api',emergencyNumberRouter)
 app.use('/api/location',locationRoutes)
 app.use("/api/journey",journeyRoutes);
+app.use("/api/safety", safetyRoutes);
 
 
 module.exports = app;

@@ -1,6 +1,10 @@
 import React from 'react'
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function JourneyCard() {
+  const navigate = useNavigate();
+  const [destination,setDestination] = useState("")
   return (
     <>
     <div className="col-span-12 lg:col-span-8 bg-white p-8 rounded-2xl border border-gray-200 shadow-sm flex flex-col justify-between overflow-hidden relative group">
@@ -35,12 +39,24 @@ function JourneyCard() {
 
         <input
           type="text"
+          value={destination}
+          onChange={(e)=>setDestination(e.target.value)}
           placeholder="Where are you going?"
           className="w-full pl-12 pr-4 py-4 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all"
         />
       </div>
 
-      <button className="w-full md:w-auto px-8 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all active:scale-95 shadow-md flex items-center justify-center space-x-2">
+      <button className="w-full md:w-auto px-8 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all active:scale-95 shadow-md flex items-center justify-center space-x-2" onClick={(e)=> {
+        if(!destination.trim()){
+          alert("Please enter a destination");
+          return;
+        }
+        navigate("/journey",{
+          state:{
+            destination,
+          },
+        });
+      }}>
         <span>Start</span>
         <span className="material-symbols-outlined">
           chevron_right

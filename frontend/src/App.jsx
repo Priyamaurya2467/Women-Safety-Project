@@ -14,6 +14,7 @@ import ProtectedRoute from './components/ProtectedRoutes'
 import Profile_Page from './components/Profile_Page'
 import TrustedContact from './components/Pages/TrustedContact/TrustedContact'
 import LiveMapping from './components/Pages/Map/LiveMapping'
+import JourneyPage from './components/Pages/JourneyPage'
 function App() {
   return (
     <>
@@ -52,6 +53,7 @@ function App() {
         <ProtectedRoute><TrustedContact/></ProtectedRoute>
       }/>
 
+      <Route path='/journey' element={<JourneyPage/>}/>
 
     </Routes>
 
