@@ -1,7 +1,10 @@
 import { User2Icon } from 'lucide-react'
 import React, { Profiler } from 'react'
-
+import { ProfileProvider } from '../../../Context/ProfileContext'
+import 'leaflet/dist/leaflet.css'
 function Main() {
+    const {profile,updateProfile} = ProfileProvider()
+
   return (
     <>
         <header className='flex items-center justify-between p-4'>
@@ -17,7 +20,7 @@ function Main() {
                 <li className='flex items-center gap-2'>
                    
                     <User2Icon size={20}/> 
-                    <span>Jane Cooper</span>
+                    <span>{profile.fullName}</span>
                     
                 </li>
                   

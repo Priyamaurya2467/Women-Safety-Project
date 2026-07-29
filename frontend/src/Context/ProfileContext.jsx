@@ -8,7 +8,7 @@ export const ProfileProvider = ({ children }) => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
 
   const [profile, setProfile] = useState({
-    fullName: storedUser?.name || "",
+    fullName: storedUser?.fullName || "",
     email: storedUser?.email || "",
     profileImage: storedUser?.profileImage || pfp,
   });

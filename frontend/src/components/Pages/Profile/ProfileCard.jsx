@@ -21,7 +21,9 @@ function ProfileCard({profile,updateProfile,isEditing,setIsEditing}) {
     }
 
   };
-  const [contacts,setContacts] = useTrustedContacts()
+
+  const {contacts,fetchContacts} = useTrustedContacts()
+
   return (
     <div className="grid grid-cols-12 gap-6">
 
@@ -107,7 +109,7 @@ function ProfileCard({profile,updateProfile,isEditing,setIsEditing}) {
           <div>
 
             <p className="text-2xl font-bold text-gray-900">
-              {contacts.length}
+            {contacts.length}
             </p>
 
             <p className="text-sm text-gray-500">

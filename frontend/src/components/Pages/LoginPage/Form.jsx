@@ -38,7 +38,7 @@ function Form() {
       );
       console.log(res.data.user)
       updateProfile({
-        name: res.data.user.name,
+        fullName: res.data.user.fullName,
         email: res.data.user.email,
         profileImage: res.data.user.profileImage || pfp
       })
