@@ -1,13 +1,8 @@
-const express = require("express");
+const express = require('express');
+const {getSafety} = require('../controllers/safetyController')
 
-const {
+const router = express.Router()
 
-getSafetyScore
+router.get('/', getSafety)
 
-}=require("../controllers/safetyController");
-
-const router=express.Router();
-
-router.get("/",getSafetyScore);
-
-module.exports=router;
+module.exports = router

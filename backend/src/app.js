@@ -9,7 +9,7 @@ app.use(cors())
 const path = require('path')
 
 app.use('/uploads', express.static(path.join(__dirname,'uploads')))
-const authRoutes = require("./routes/authRoutes");
+const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const trustedContactRoutes = require('./routes/trustedContactRoutes')
 const sosRoutes = require('./routes/sosRoutes')
@@ -24,6 +24,7 @@ const emergencyNumberRouter = require('./routes/emergencyNumber')
 const locationRoutes = require('./routes/locationRoutes')
 const journeyRoutes = require('../src/routes/journeyRoutes')
 const safetyRoutes = require('../src/routes/safetyRoutes')
+const monitoringRoutes = require("../src/routes/monitoringRoutes");
 app.use("/api/auth", authRoutes);
 app.use("/api/user",userRoutes);
 app.use("/api/contacts",trustedContactRoutes)
@@ -39,6 +40,7 @@ app.use('/api',emergencyNumberRouter)
 app.use('/api/location',locationRoutes)
 app.use("/api/journey",journeyRoutes);
 app.use("/api/safety", safetyRoutes);
+app.use('/api/monitor',monitoringRoutes)
 
 
 module.exports = app;

@@ -1,10 +1,77 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useJourneyContext } from '../../../Context/JourneyContext';
+import { useLocation } from '../../../Context/LocationContext';
+import { startJourney } from '../../../services/journeyService';
+import { getDestinationCoordinates } from '../../../services/geocodeService';
+import { getRoute } from '../../../services/routeService';
+
 
 function JourneyCard() {
   const navigate = useNavigate();
+  const {startJourneyState,updateJourneyProgress,completeJourney} = useJourneyContext();
+  const {startSharing,location}= useLocation()
   const [destination,setDestination] = useState("")
+
+  const handleStartJourney = async()=>{
+    try{
+      const currentLocation = await startSharing();
+      console.log(destination)
+      const destinationLocation = await getDestinationCoordinates(destination)
+      console.log(destinationLocation)
+
+      const route = await getRoute(
+  {
+    lat: currentLocation.latitude,
+    lng: currentLocation.longitude,
+  },
+  {
+    lat: destinationLocation.latitude,
+    lng: destinationLocation.longitude,
+  }
+);
+
+  const result = await startJourney({
+    startLocation: currentLocation,
+
+    destination: {
+      name: destination,
+      latitude: destinationLocation.latitude,
+      longitude: destinationLocation.longitude,
+    },
+
+    distance: route.distance / 1000,
+    estimatedTime: Math.round(route.duration / 60),
+  });
+
+  startJourneyState({
+    startLocation: currentLocation,
+
+    destination: {
+      name: destination,
+      latitude: destinationLocation.latitude,
+      longitude: destinationLocation.longitude,
+    },
+
+    route: route.geometry.coordinates.map(point => ({
+      latitude: point[1],
+      longitude: point[0],
+    })),
+
+    distance: Number((route.distance/1000).toFixed(2)),
+    estimatedTime: Math.round(route.duration/60),
+    
+    trackingToken: result.data.trackingToken,
+  });
+
+  navigate("/journey");
+        
+    }catch(err){
+      console.log(err)
+    }
+  }
+
   return (
     <>
     <div className="col-span-12 lg:col-span-8 bg-white p-8 rounded-2xl border border-gray-200 shadow-sm flex flex-col justify-between overflow-hidden relative group">
@@ -46,17 +113,9 @@ function JourneyCard() {
         />
       </div>
 
-      <button className="w-full md:w-auto px-8 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all active:scale-95 shadow-md flex items-center justify-center space-x-2" onClick={(e)=> {
-        if(!destination.trim()){
-          alert("Please enter a destination");
-          return;
-        }
-        navigate("/journey",{
-          state:{
-            destination,
-          },
-        });
-      }}>
+      <button className="w-full md:w-auto px-8 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all active:scale-95 shadow-md flex items-center justify-center space-x-2"
+        onClick={handleStartJourney}
+      >
         <span>Start</span>
         <span className="material-symbols-outlined">
           chevron_right

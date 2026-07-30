@@ -1,6 +1,23 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useState } from 'react'
 
 function VerifyCab() {
+
+  const [vehicleNumber,setVehicleNumber] = useState("");
+  const [vehicle,setVehicle] = useState(null)
+
+  const handleVerify = async() => {
+    try{
+      const res = await axios.post(
+        "http://localhost:5000/api/vehicle/verify",
+        {
+          plateNumber:vehicleNumber
+        }
+      )
+    }catch(err){
+      console.log(err)
+    }
+  }
   return (
     <>
     
@@ -29,11 +46,15 @@ function VerifyCab() {
 
     <input
       type="text"
+      value={vehicleNumber}
+      onChange={(e)=>setVehicleNumber(e.target.value.toUpperCase())}
       placeholder="Enter license plate (e.g. MH 01 AA 1234)"
       className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all"
     />
 
-    <button className="w-full py-3 border-2 border-indigo-600 text-indigo-600 rounded-xl font-bold hover:bg-indigo-600 hover:text-white transition-all flex items-center justify-center space-x-2">
+    <button className="w-full py-3 border-2 border-indigo-600 text-indigo-600 rounded-xl font-bold hover:bg-indigo-600 hover:text-white transition-all flex items-center justify-center space-x-2"
+            onClick={hanadleVerify}
+    >
       <span className="material-symbols-outlined text-[20px]">
         search
       </span>

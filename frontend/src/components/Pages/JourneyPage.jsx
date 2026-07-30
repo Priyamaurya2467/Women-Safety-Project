@@ -1,64 +1,60 @@
-import { useLocation } from "react-router-dom";
-import LiveMap from "./Map/LiveMapping";
-import SafetyStatus from "./Journey/SafetyStatus";
+import React from "react";
+import { useLocation as useRouterLocation } from "react-router-dom";
+import { useLocation as useLocationContext } from "../../Context/LocationContext";
+import AlertBanner from '../../components/Pages/Journey/AlertBanner';
+import SafetyStatus from "../../components/Pages/Journey/SafetyStatus";
+import SafetyScore from "../../components/Pages/Journey/SafetyScore";
+import JourneyProgress from "../../components/Pages/Journey/JourneyProgress";
+import LiveTracking from "../../components/Pages/LiveTracking";
+import { useJourneyContext } from "../../Context/JourneyContext";
 function JourneyPage() {
+    const { monitoring,location} = useLocationContext();
+    const {journey} = useJourneyContext();
 
-    const { state } = useLocation();
+    console.log("Journey =", journey);
+    console.log("Location =", location);
 
-    const destination = state?.destination;
+  return (
+    <div className="grid grid-cols-12 gap-6 p-6">
+      {/* Left Panel */}
+      <div className="col-span-12 lg:col-span-4 space-y-6">
+        <AlertBanner
+          level={monitoring?.safe ? "safe" : "danger"}
+          message={
+            monitoring?.alert ||
+            "You are currently travelling through a safe area."
+          }
+        />
 
-    console.log(destination);
+        <SafetyScore
+          score={monitoring?.score || 100}
+        />
 
-    return (
-        
-        <div className="min-h-screen bg-gray-100">
+        <SafetyStatus
+          safetyScore={monitoring?.score || 100}
+          status={monitoring?.safe ? journey.status: "Unsafe Area"}
+          distanceLeft={journey.remainingDistance}
+          eta={journey.remainingTime}
+        />
 
-            <div className="max-w-7xl mx-auto p-6">
+        <JourneyProgress
+          destination={journey.destination}
+          currentArea={monitoring?.zone || "Unknown"}
+          distance={journey.distance}
+        />
+      </div>
 
-                <h1 className="text-3xl font-bold mb-6">
-                    Safe Journey
-                </h1>
-
-                <div className="grid grid-cols-12 gap-6">
-
-                    {/* Left Side */}
-                    <div className="col-span-4 bg-white rounded-xl p-6 shadow">
-
-                        <h2 className="text-xl font-semibold mb-4">
-                            Journey Details
-                        </h2>
-
-                        <p>
-                            <strong>Destination:</strong>
-                        </p>
-
-                        <p className="text-gray-600">
-                            {destination}
-                        </p>
-
-                    </div>
-
-                    {/* Right Side */}
-
-                    <div className="col-span-8 bg-white rounded-xl shadow h-[650px]">
-
-                        <LiveMap destination={destination}/>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <SafetyStatus safetyScore={92} status="Journey Active" distanceLeft={5.4} eta={16}/>
-
-            {/* if(distanceFromRoute >200){
-
-                alert("You have deviated from your planned route.");
-
-                } */}
-        </div>
-    );
+      {/* Right Panel */}
+      <div className="col-span-12 lg:col-span-8">
+        <LiveTracking
+          currentLocation = {location}
+          destination={journey.destination}
+          route= {journey.route}
+        />
+      </div>
+      
+    </div>
+  );
 }
 
 export default JourneyPage;

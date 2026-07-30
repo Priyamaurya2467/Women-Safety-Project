@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
 import {
   MapContainer,
   TileLayer,
   Marker,
   Popup,
+  Polyline,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import L from "leaflet";
-import { getTracking } from "../services/trackingService";
+import L, { point } from "leaflet";
 
 // Fix Leaflet marker icon issue
 delete L.Icon.Default.prototype._getIconUrl;
@@ -22,122 +21,89 @@ L.Icon.Default.mergeOptions({
     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
 });
 
-function LiveTracking() {
-  const { token } = useParams();
-
-  const [journey, setJourney] = useState(null);
-  const [location, setLocation] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  const loadTracking = async () => {
-    try {
-      const res = await getTracking(token);
-
-      if (res.success) {
-        setJourney(res.journey);
-        setLocation(res.location);
-      }
-    } catch (error) {
-      console.log("Tracking Error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    loadTracking();
-
-    const interval = setInterval(() => {
-      loadTracking();
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  if (loading) {
+function LiveTracking({currentLocation,destination,route}) {
+  if (!currentLocation||currentLocation.latitude==null || currentLocation.longitude==null) {
     return (
-      <div className="flex justify-center items-center h-screen text-xl">
-        Loading Live Tracking...
+      <div className="flex items-center justify-center h-[500px] bg-gray-100 rounded-xl">
+        <p className="text-gray-600 text-lg">
+          Waiting for live location...
+        </p>
+
       </div>
     );
   }
 
-  if (!location) {
-    return (
-      <div className="flex justify-center items-center h-screen text-xl">
-        Live location unavailable.
-      </div>
-    );
-  }
+  console.log("Destination:", destination)
 
   return (
-    <div className="h-screen w-full relative">
-
-      {/* Journey Details */}
-      <div className="absolute top-5 left-5 z-[1000] bg-white shadow-lg rounded-lg p-5 w-80">
-
-        <h2 className="text-2xl font-bold mb-4">
-          Live Journey
-        </h2>
-
-        <div className="space-y-2">
-
-          <p>
-            <strong>Status:</strong>{" "}
-            {journey?.status}
-          </p>
-
-          <p>
-            <strong>Destination:</strong>{" "}
-            {journey?.destination?.name}
-          </p>
-
-          <p>
-            <strong>Distance:</strong>{" "}
-            {journey?.distance} km
-          </p>
-
-          <p>
-            <strong>Estimated Time:</strong>{" "}
-            {journey?.estimatedTime} min
-          </p>
-
-          <p>
-            <strong>Started:</strong>{" "}
-            {new Date(journey?.startedAt).toLocaleString()}
-          </p>
-
-        </div>
-
-      </div>
-
+    <div className="h-[600px] w-full rounded-xl overflow-hidden shadow-lg">
       <MapContainer
-        center={[
-          location.latitude,
-          location.longitude,
-        ]}
-        zoom={15}
+        center={[currentLocation?.latitude, currentLocation?.longitude]}
+        zoom={16}
         scrollWheelZoom={true}
         className="h-full w-full"
       >
+
+        
+          
+            {route?.length >0 && (
+                <Polyline
+                  positions={route.map(point => [
+                    point.latitude,
+                    point.longitude
+                  ])}
+                />
+              )
+            }
+          
+         
+
+
         <TileLayer
-          attribution='&copy; OpenStreetMap contributors'
+          attribution="&copy; OpenStreetMap contributors"
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        <Marker
-          position={[
-            location.latitude,
-            location.longitude,
-          ]}
-        >
+        {
+          currentLocation.latitude!=null && 
+          currentLocation.longitude!=null && (
+
+          <Marker 
+             position={[
+                    currentLocation.latitude,
+                    currentLocation.longitude
+             ]}>
           <Popup>
-            User's Current Live Location 📍
+            Your Current Location 📍
+            <br />
+            Latitude: {currentLocation?.latitude.toFixed(6)}
+            <br />
+            Longitude: {currentLocation?.longitude.toFixed(6)}
           </Popup>
-        </Marker>
+          </Marker>
+          )
+        }
 
+       
+         {
+          destination?.latitude != null &&
+          destination?.longitude != null && (
+            <Marker
+              position={[
+                destination.latitude,
+                destination.longitude
+              ]}
+              >
+
+                <Popup>
+                  Destination 📍
+                </Popup>
+
+            </Marker>
+          )
+        }
+          
       </MapContainer>
-
     </div>
   );
 }

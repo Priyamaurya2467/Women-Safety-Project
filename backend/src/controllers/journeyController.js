@@ -39,7 +39,10 @@ const startJourney = async (req, res) => {
 
 const endJourney = async (req, res) => {
   try {
-    const journey = await Journey.findById(req.params.id);
+    const journey = await Journey.findOne({
+      _id:req.params.id,
+      user: req.user.id
+    })
 
     if (!journey) {
       return res.status(404).json({

@@ -1,53 +1,24 @@
-const axios = require('axios')
+import axios from "axios";
 
 const API="http://localhost:5000/api/journey";
 
-const startJourney=async(data)=>{
+export const startJourney=async(data)=>{
 
-const res=await axios.post(
-
-`${API}/start`,
-
-data,
-
-{
-
-headers:{
-
-Authorization:`Bearer ${localStorage.getItem("token")}`
-
-}
-
-}
-
+    const res=await axios.post(`${API}/start`, data,{
+        headers:{ Authorization:`Bearer ${localStorage.getItem("token")}`}
+    }
 );
-
-return res.data;
+    return res.data;
 
 };
 
-const endJourney=async(id)=>{
 
-const res=await axios.put(
+export const endJourney=async(id)=>{
 
-`${API}/end/${id}`,
-
-{},
-
-{
-
-headers:{
-
-Authorization:`Bearer ${localStorage.getItem("token")}`
-
-}
-
-}
-
+    const res=await axios.put(`${API}/end/${id}`, {},{
+        headers:{ Authorization:`Bearer ${localStorage.getItem("token")}`}
+    }
 );
-
-return res.data;
+    return res.data;
 
 };
-
-module.exports ={startJourney,endJourney}

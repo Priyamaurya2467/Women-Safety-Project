@@ -13,7 +13,7 @@ import Family_Dashboard from './components/Family_Dashboard'
 import ProtectedRoute from './components/ProtectedRoutes'
 import Profile_Page from './components/Profile_Page'
 import TrustedContact from './components/Pages/TrustedContact/TrustedContact'
-import LiveMapping from './components/Pages/Map/LiveMapping'
+
 import JourneyPage from './components/Pages/JourneyPage'
 function App() {
   return (
@@ -47,7 +47,7 @@ function App() {
       <Route path='/settings' element={
         <ProtectedRoute><Profile_Page/></ProtectedRoute>
       }/>
-      <Route path="/map"element={<LiveMapping/>} />
+      
 
       <Route path='/trusted-contact' element={
         <ProtectedRoute><TrustedContact/></ProtectedRoute>
