@@ -1,123 +1,177 @@
-import React from 'react'
+import React from "react";
 
-function Verification() {
+function Verification({ vehicle }) {
+  if (!vehicle) return null;
+
   return (
-    <>
-
     <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
 
-  {/* <!-- Header --> */}
-  <div className="flex items-center justify-between border-b border-gray-200 p-6">
-    <h3 className="text-xl font-bold text-gray-900">
-      Live Verification Chain
-    </h3>
+      {/* Header */}
+      <div className="flex items-center justify-between border-b border-gray-200 p-6">
+        <h3 className="text-xl font-bold text-gray-900">
+          Verification Timeline
+        </h3>
 
-    <span className="font-mono text-xs text-gray-500">
-      ENCRYPTED END-TO-END
-    </span>
-  </div>
-
-  {/* <!-- Timeline --> */}
-  <div className="space-y-6 p-6">
-{/* 
-    <!-- Item 1 --> */}
-    <div className="flex items-start gap-4">
-
-      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-green-600">
-        <span className="material-symbols-outlined text-[18px] text-white">
-          face
+        <span className="font-mono text-xs text-gray-500">
+          SAFEHER SECURITY
         </span>
       </div>
 
-      <div className="grow pt-1">
+      {/* Timeline */}
+      <div className="space-y-8 p-6">
 
-        <div className="mb-2 flex items-center justify-between">
-          <p className="text-sm font-semibold text-gray-900">
-            Biometric Driver Verification
-          </p>
+        {/* Vehicle Verification */}
+        <div className="relative flex items-start gap-4">
 
-          <span className="text-xs font-bold text-green-600">
-            SUCCESS
-          </span>
+          <div className="absolute left-4 top-8 bottom-[-32px] w-px bg-gray-300"></div>
+
+          <div
+            className={`flex h-8 w-8 items-center justify-center rounded-full ${
+              vehicle.verified ? "bg-green-600" : "bg-red-600"
+            }`}
+          >
+            <span className="material-symbols-outlined text-white text-[18px]">
+              directions_car
+            </span>
+          </div>
+
+          <div className="flex-1">
+            <div className="flex justify-between">
+              <h4 className="font-semibold text-gray-900">
+                Vehicle Verification
+              </h4>
+
+              <span
+                className={`text-xs font-bold ${
+                  vehicle.verified ? "text-green-600" : "text-red-600"
+                }`}
+              >
+                {vehicle.verified ? "VERIFIED" : "FAILED"}
+              </span>
+            </div>
+
+            <p className="mt-1 text-sm text-gray-600">
+              Vehicle number <b>{vehicle.plateNumber}</b> found in the SafeHer
+              verification database.
+            </p>
+          </div>
         </div>
 
-        <p className="text-sm text-gray-600">
-          Live facial recognition matched with DMV database records from Dec
-          2023.
-        </p>
+        {/* RC Verification */}
+        <div className="relative flex items-start gap-4">
 
-      </div>
+          <div className="absolute left-4 top-8 bottom-[-32px] w-px bg-gray-300"></div>
 
-    </div>
+          <div
+            className={`flex h-8 w-8 items-center justify-center rounded-full ${
+              vehicle.rcVerified ? "bg-green-600" : "bg-red-600"
+            }`}
+          >
+            <span className="material-symbols-outlined text-white text-[18px]">
+              badge
+            </span>
+          </div>
 
-    {/* <!-- Item 2 --> */}
-    <div className="relative flex items-start gap-4">
+          <div className="flex-1">
+            <div className="flex justify-between">
+              <h4 className="font-semibold text-gray-900">
+                Registration Certificate
+              </h4>
 
-      {/* <!-- Vertical Line --> */}
-      <div className="absolute left-4 top-8 bottom-[-24px] w-px bg-gray-300"></div>
+              <span
+                className={`text-xs font-bold ${
+                  vehicle.rcVerified ? "text-green-600" : "text-red-600"
+                }`}
+              >
+                {vehicle.rcVerified ? "VALID" : "INVALID"}
+              </span>
+            </div>
 
-      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-green-600">
-        <span className="material-symbols-outlined text-[18px] text-white">
-          security
-        </span>
-      </div>
-
-      <div className="pt-1">
-
-        <div className="mb-2 flex items-center justify-between">
-          <p className="text-sm font-semibold text-gray-900">
-            Vehicle Documentation
-          </p>
-
-          <span className="text-xs font-bold text-green-600">
-            VALIDATED
-          </span>
+            <p className="mt-1 text-sm text-gray-600">
+              RC document verification completed successfully.
+            </p>
+          </div>
         </div>
 
-        <p className="text-sm text-gray-600">
-          Insurance and commercial permit #CP-887 are active and verified
-          through enterprise portal.
-        </p>
+        {/* Insurance */}
+        <div className="relative flex items-start gap-4">
 
-      </div>
+          <div className="absolute left-4 top-8 bottom-[-32px] w-px bg-gray-300"></div>
 
-    </div>
+          <div
+            className={`flex h-8 w-8 items-center justify-center rounded-full ${
+              vehicle.insuranceValid ? "bg-green-600" : "bg-red-600"
+            }`}
+          >
+            <span className="material-symbols-outlined text-white text-[18px]">
+              shield
+            </span>
+          </div>
 
-    {/* <!-- Item 3 --> */}
-    <div className="flex items-start gap-4">
+          <div className="flex-1">
+            <div className="flex justify-between">
+              <h4 className="font-semibold text-gray-900">
+                Insurance Verification
+              </h4>
 
-      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border-2 border-blue-600 bg-blue-100">
-        <div className="h-2 w-2 animate-pulse rounded-full bg-blue-600"></div>
-      </div>
+              <span
+                className={`text-xs font-bold ${
+                  vehicle.insuranceValid ? "text-green-600" : "text-red-600"
+                }`}
+              >
+                {vehicle.insuranceValid ? "ACTIVE" : "EXPIRED"}
+              </span>
+            </div>
 
-      <div className="grow pt-1">
-
-        <div className="mb-2 flex items-center justify-between">
-          <p className="text-sm font-semibold text-gray-900">
-            Geographic Sync
-          </p>
-
-          <span className="text-xs font-bold text-blue-600">
-            ACTIVE SYNCING...
-          </span>
+            <p className="mt-1 text-sm text-gray-600">
+              Insurance status has been verified for this vehicle.
+            </p>
+          </div>
         </div>
 
-        <p className="text-sm text-gray-600">
-          Confirming vehicle proximity to your current location (Est. 12
-          meters).
-        </p>
+        {/* Safety History */}
+        <div className="flex items-start gap-4">
+
+          <div
+            className={`flex h-8 w-8 items-center justify-center rounded-full ${
+              vehicle.emergencyReported ? "bg-red-600" : "bg-green-600"
+            }`}
+          >
+            <span className="material-symbols-outlined text-white text-[18px]">
+              warning
+            </span>
+          </div>
+
+          <div className="flex-1">
+            <div className="flex justify-between">
+              <h4 className="font-semibold text-gray-900">
+                Safety History
+              </h4>
+
+              <span
+                className={`text-xs font-bold ${
+                  vehicle.emergencyReported
+                    ? "text-red-600"
+                    : "text-green-600"
+                }`}
+              >
+                {vehicle.emergencyReported
+                  ? "INCIDENT FOUND"
+                  : "NO INCIDENTS"}
+              </span>
+            </div>
+
+            <p className="mt-1 text-sm text-gray-600">
+              {vehicle.emergencyReported
+                ? vehicle.remarks
+                : "No previous emergency reports associated with this vehicle."}
+            </p>
+          </div>
+        </div>
 
       </div>
-
     </div>
-
-    </div>
-
-
-
-    </div>
-    </>
-  )
+  );
 }
 
-export default Verification
+export default Verification;

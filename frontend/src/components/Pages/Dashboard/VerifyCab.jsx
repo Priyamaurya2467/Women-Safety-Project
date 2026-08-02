@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function VerifyCab() {
   const [vehicleNumber, setVehicleNumber] = useState("");
   const [vehicle, setVehicle] = useState(null);
   const [verified, setVerified] = useState(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleVerify = async () => {
     if (!vehicleNumber.trim()) {
@@ -23,13 +25,17 @@ function VerifyCab() {
         }
       );
 
-      setVehicle(res.data.vehicle);
-      setVerified(res.data.verified);
+      navigate("/cab_verification",{
+        state: {
+          vehicle: res.data.vehicle,
+        }
+      })
     } catch (err) {
       setVehicle(null);
+      console.log(err);
       setVerified(false);
 
-      console.log(err);
+      
 
       if (err.response) {
         alert(err.response.data.message);

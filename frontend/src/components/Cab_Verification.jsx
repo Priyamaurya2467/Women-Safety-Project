@@ -6,6 +6,7 @@ import Driver from "./Pages/Cab_Verification/Driver";
 import Safety_Protocol from "./Pages/Cab_Verification/Safety_Protocol";
 import Vehicle_info from "./Pages/Cab_Verification/Vehicle_info";
 import Verification from "./Pages/Cab_Verification/Verification";
+import { useLocation } from "react-router-dom";
 import {
   CheckCircle2,
   ShieldCheck,
@@ -20,6 +21,16 @@ import {
 } from "lucide-react";
 
 function Cab_Verification() {
+  const location = useLocation();
+  const vehicle = location.state?.vehicle;
+
+  if(!vehicle){
+    return (
+      <div className="pt-24 text-center text-red-600 font-bold">
+        No Vehicle Data Found
+      </div>
+    )
+  }
   
 
   return (
@@ -33,22 +44,22 @@ function Cab_Verification() {
 
       <main className="min-h-screen bg-gray-50 pt-20 md:ml-64 px-8 lg:px-10"> 
         <div className="mx-auto max-w-7xl space-y-6">
-          <Verified_card/>
+          <Verified_card vehicle={vehicle}/>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
 
   {/* Left Side */}
   <div className="lg:col-span-4">
-    <Driver />
+    <Driver vehicle={vehicle} />
   </div>
 
   {/* Right Side */}
   <div className="space-y-6 lg:col-span-8">
 
-    <Vehicle_info />
+    <Vehicle_info vehicle={vehicle} />
 
-    <Safety_Protocol />
+    <Safety_Protocol vehicle={vehicle} />
 
-    <Verification />
+    <Verification vehicle={vehicle}/>
 
     <div className="flex flex-col gap-4 pt-6 mb-5 sm:flex-row">
 
