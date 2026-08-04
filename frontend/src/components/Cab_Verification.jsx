@@ -38,7 +38,7 @@ function Cab_Verification() {
 
     <div className="bg-white text-gray-700">
 
-      <Navbar/>
+      
       <Sidebar/>
    
 

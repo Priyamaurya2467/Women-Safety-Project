@@ -7,13 +7,72 @@ import {
   Users,
   Route,
   ArrowRight,
+  CheckCircle,
 } from "lucide-react";
 
+import { useJourneyContext } from "../../../Context/JourneyContext";
+import { useLocation } from "../../../Context/LocationContext";
+import { useTrustedContacts } from "../../../Context/TrustedContactContext";
+
 function WelcomeCard() {
+  const { journey } = useJourneyContext();
+  const { isSharing, monitoring } = useLocation();
+  const { contacts } = useTrustedContacts();
+
+  const features = [
+    {
+      icon: <Car className="text-indigo-600" />,
+      title: "Cab Verification",
+      description: journey?.vehicleVerified
+        ? "Vehicle successfully verified."
+        : "Verify your cab before starting.",
+      color: "hover:border-indigo-300 hover:bg-indigo-50",
+    },
+    {
+      icon: <MapPinned className="text-green-600" />,
+      title: "Live Tracking",
+      description: isSharing
+        ? "Live GPS is currently active."
+        : "Location sharing is currently disabled.",
+      color: "hover:border-green-300 hover:bg-green-50",
+    },
+    {
+      icon: <Siren className="text-red-600" />,
+      title: "Emergency SOS",
+      description: "Emergency assistance is always ready.",
+      color: "hover:border-red-300 hover:bg-red-50",
+    },
+    {
+      icon: <Users className="text-purple-600" />,
+      title: "Trusted Contacts",
+      description: `${contacts.length} trusted contact${
+        contacts.length !== 1 ? "s" : ""
+      } available.`,
+      color: "hover:border-purple-300 hover:bg-purple-50",
+    },
+    {
+      icon: <Route className="text-cyan-600" />,
+      title: "Route Analysis",
+      description:
+        journey?.destination?.name ||
+        "Analyze your safest route before travelling.",
+      color: "hover:border-cyan-300 hover:bg-cyan-50",
+    },
+    {
+      icon: <ShieldCheck className="text-yellow-600" />,
+      title: "AI Monitoring",
+      description: monitoring?.safe
+        ? "Your area is currently safe."
+        : monitoring?.alert || "Monitoring your journey.",
+      color: "hover:border-yellow-300 hover:bg-yellow-50",
+    },
+  ];
+
   return (
     <div className="rounded-3xl border border-gray-200 bg-white p-8 shadow-sm">
 
-      {/* Heading */}
+      {/* Header */}
+
       <div className="flex items-center gap-4">
 
         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-indigo-100">
@@ -21,95 +80,121 @@ function WelcomeCard() {
         </div>
 
         <div>
+
           <h2 className="text-2xl font-bold text-gray-800">
-            Welcome to SafeHer AI
+            {journey?.status === "active"
+              ? "Journey in Progress"
+              : "Welcome to SafeHer AI"}
           </h2>
 
           <p className="mt-1 text-sm text-gray-500">
-            Your intelligent AI companion for safer travel.
+            {journey?.status === "active"
+              ? `Heading towards ${
+                  journey.destination?.name || "your destination"
+                }`
+              : "Your intelligent AI companion for safer travel."}
           </p>
+
         </div>
 
       </div>
 
-      {/* Description */}
-      <p className="mt-6 text-gray-600 leading-7">
-        Ask anything related to your journey, verify your cab,
-        monitor live location, trigger SOS, analyze routes,
-        or get instant emergency assistance.
-      </p>
+      {/* Current Status */}
 
-      {/* Feature Grid */}
-      <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-6 flex flex-wrap gap-3">
 
-        <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5 transition hover:border-indigo-300 hover:bg-indigo-50">
-          <Car className="mb-3 text-indigo-600" />
-          <h3 className="font-semibold text-gray-800">
-            Verify Cab
-          </h3>
-          <p className="mt-2 text-sm text-gray-500">
-            Verify vehicle number, driver details and insurance.
-          </p>
-        </div>
+        <span className="rounded-full border border-green-200 bg-green-50 px-4 py-2 text-sm text-green-700">
+          {monitoring?.safe ? "✅ Area Safe" : "⚠ Threat Detected"}
+        </span>
 
-        <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5 transition hover:border-green-300 hover:bg-green-50">
-          <MapPinned className="mb-3 text-green-600" />
-          <h3 className="font-semibold text-gray-800">
-            Live Tracking
-          </h3>
-          <p className="mt-2 text-sm text-gray-500">
-            Share your real-time location with trusted contacts.
-          </p>
-        </div>
+        <span className="rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm text-blue-700">
+          {isSharing ? "📍 Live GPS Active" : "📍 GPS Off"}
+        </span>
 
-        <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5 transition hover:border-red-300 hover:bg-red-50">
-          <Siren className="mb-3 text-red-600" />
-          <h3 className="font-semibold text-gray-800">
-            Emergency SOS
-          </h3>
-          <p className="mt-2 text-sm text-gray-500">
-            Instantly alert your emergency contacts.
-          </p>
-        </div>
-
-        <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5 transition hover:border-purple-300 hover:bg-purple-50">
-          <Users className="mb-3 text-purple-600" />
-          <h3 className="font-semibold text-gray-800">
-            Trusted Contacts
-          </h3>
-          <p className="mt-2 text-sm text-gray-500">
-            Keep your family updated throughout your journey.
-          </p>
-        </div>
-
-        <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5 transition hover:border-cyan-300 hover:bg-cyan-50">
-          <Route className="mb-3 text-cyan-600" />
-          <h3 className="font-semibold text-gray-800">
-            Route Analysis
-          </h3>
-          <p className="mt-2 text-sm text-gray-500">
-            AI checks road safety, lighting and crowd density.
-          </p>
-        </div>
-
-        <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5 transition hover:border-yellow-300 hover:bg-yellow-50">
-          <ShieldCheck className="mb-3 text-yellow-600" />
-          <h3 className="font-semibold text-gray-800">
-            Safety Tips
-          </h3>
-          <p className="mt-2 text-sm text-gray-500">
-            Get personalized travel and emergency guidance.
-          </p>
-        </div>
+        <span className="rounded-full border border-purple-200 bg-purple-50 px-4 py-2 text-sm text-purple-700">
+          👥 {contacts.length} Trusted Contacts
+        </span>
 
       </div>
 
-      {/* CTA */}
+      {/* Features */}
+
+      <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+
+        {features.map((feature) => (
+          <div
+            key={feature.title}
+            className={`rounded-2xl border border-gray-200 bg-gray-50 p-5 transition ${feature.color}`}
+          >
+            {feature.icon}
+
+            <h3 className="mt-4 font-semibold text-gray-800">
+              {feature.title}
+            </h3>
+
+            <p className="mt-2 text-sm text-gray-500">
+              {feature.description}
+            </p>
+          </div>
+        ))}
+
+      </div>
+
+      {/* Journey Summary */}
+
+      {journey?.status === "active" && (
+        <div className="mt-8 rounded-2xl border border-green-200 bg-green-50 p-5">
+
+          <div className="flex items-center gap-3">
+
+            <CheckCircle className="text-green-600" />
+
+            <h3 className="font-semibold text-green-700">
+              Active Journey
+            </h3>
+
+          </div>
+
+          <div className="mt-4 grid gap-4 md:grid-cols-3">
+
+            <div>
+              <p className="text-xs text-gray-500">Destination</p>
+              <p className="font-semibold">
+                {journey.destination?.name || "--"}
+              </p>
+            </div>
+
+            <div>
+              <p className="text-xs text-gray-500">ETA</p>
+              <p className="font-semibold">
+                {journey.estimatedTime || "--"} mins
+              </p>
+            </div>
+
+            <div>
+              <p className="text-xs text-gray-500">Distance</p>
+              <p className="font-semibold">
+                {journey.distance || "--"} km
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      )}
+
+      {/* Buttons */}
+
       <div className="mt-8 flex flex-wrap gap-4">
 
         <button className="flex items-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:bg-indigo-700">
-          Start Chat
+
+          {journey?.status === "active"
+            ? "Continue Journey"
+            : "Start Chat"}
+
           <ArrowRight size={18} />
+
         </button>
 
         <button className="rounded-xl border border-gray-200 bg-white px-6 py-3 font-semibold text-gray-700 transition hover:bg-gray-100">

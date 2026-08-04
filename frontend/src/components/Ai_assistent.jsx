@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "../Elements/Sidebar";
+import Sidebar from "./Elements/Sidebar";
 import ChatArea from './ChatArea'
 
 function Ai_assistent() {
@@ -9,7 +9,7 @@ function Ai_assistent() {
       <Sidebar />
 
       {/* Main Content */}
-      <main className="md:pl-64 min-h-screen">
+      <main className="flex-1 md:ml-64 overflow-hidden">
         <ChatArea />
       </main>
     </div>

@@ -40,7 +40,7 @@ function CabVerificationCard() {
       <div className="mt-8 flex items-center gap-5">
 
         <img
-          src="https://i.pravatar.cc/150?img=12"
+          src={vehicle.driverImage || "/pfp.jpg"}
           alt="Driver"
           className="h-24 w-24 rounded-full border border-gray-200 object-cover"
         />
@@ -48,7 +48,7 @@ function CabVerificationCard() {
         <div>
 
           <h3 className="text-lg font-semibold text-gray-800">
-            Rahul Sharma
+            {vehicle}
           </h3>
 
           <p className="text-sm text-gray-500">

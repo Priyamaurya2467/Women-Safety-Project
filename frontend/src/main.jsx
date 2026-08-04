@@ -9,17 +9,21 @@ import { ProfileProvider } from './Context/ProfileContext.jsx';
 import { TrustedContactProvider } from './Context/TrustedContactContext.jsx';
 import { LocationProvider } from './Context/LocationContext.jsx';
 import { JourneyProvider } from './Context/JourneyContext.jsx';
+import { SOSProvider } from './Context/SOSContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ProfileProvider>
-      <TrustedContactProvider>
+      <SOSProvider>
         <LocationProvider>
           <JourneyProvider>
+            <TrustedContactProvider>
               <App />
+            </TrustedContactProvider>
+              
           </JourneyProvider>
         </LocationProvider>
-      </TrustedContactProvider>
+      </SOSProvider>
     </ProfileProvider>
   </StrictMode>
 );
