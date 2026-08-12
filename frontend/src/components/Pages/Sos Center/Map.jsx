@@ -1,6 +1,9 @@
 import React from 'react'
 
-function Map() {
+function Map({currentSOS}) {
+
+  const position = currentSOS ? [currentSOS.latitude,currentSOS.longitude]:null;
+  
   return (
     <>
 

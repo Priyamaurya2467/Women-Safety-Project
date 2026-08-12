@@ -1,115 +1,84 @@
-import React from 'react'
+import React from "react";
 
-function User_Status_Card() {
+function User_Status_Card({ currentSOS, loading }) {
+  if (loading) {
+    return (
+      <div className="rounded-2xl bg-white p-5 shadow-sm">
+        <p className="text-sm text-gray-500">
+          Loading SOS status...
+        </p>
+      </div>
+    );
+  }
+
+  const isActive =
+    currentSOS &&
+    currentSOS.status !== "CANCELLED" &&
+    currentSOS.status !== "RESOLVED";
+
   return (
-    <>
+    <div className="rounded-2xl bg-white p-5 shadow-sm">
 
-    {/* User Information Card */}
-    <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-md">
-
-    {/* Profile Header */}
-    <div className="mb-8 flex items-center gap-4">
-        <div className="relative">
-        <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE5tKDAce5MtbR7_1EjKuNCxHKUcKSV2hHRM4BQwJo2nBgOBS8VflM1WHHSd-cf7T1rtTh1Xrr3tRtalWfKsON_dpob6DVN2cEX7hI1-Mgxc5fF6tBGoaDCu2bITmG2dJUiNTXwzPJz2-77d_rrq6wn4isty95WcMbFy5esg4u5XFi5OlniPizXRLloZgl9ZoiC67KSZqf5rVHsqKFbyHgs0eAPVilTu_Ld83fO2-Zc6tq-w_bugrnvKhi8LS1oWeMNojLLIiArmi3"
-            alt="Maya Rodriguez"
-            className="h-16 w-16 rounded-full object-cover ring-2 ring-blue-500 ring-offset-2"
-        />
-
-        {/* Online Indicator */}
-        <span className="absolute bottom-0 right-0 h-4 w-4 rounded-full border-2 border-white bg-green-500"></span>
-        </div>
-
-        <div>
-        <h2 className="text-lg font-bold text-gray-900">
-            Maya Rodriguez
+      <div className="flex items-center justify-between">
+        <h2 className="font-semibold text-gray-800">
+          SOS Status
         </h2>
 
-        <p className="text-xs font-medium text-gray-500">
-            ID: SH-10928 • Premium User
-        </p>
+        <span
+          className={`rounded-full px-3 py-1 text-xs font-medium ${
+            isActive
+              ? "bg-red-100 text-red-600"
+              : "bg-green-100 text-green-600"
+          }`}
+        >
+          {isActive ? "ACTIVE" : "SAFE"}
+        </span>
+      </div>
+
+      {isActive ? (
+        <div className="mt-4 space-y-3">
+
+          <div>
+            <p className="text-xs text-gray-500">
+              Emergency Type
+            </p>
+
+            <p className="font-medium text-gray-800">
+              {currentSOS.emergencyType || "Emergency"}
+            </p>
+          </div>
+
+          <div>
+            <p className="text-xs text-gray-500">
+              Location
+            </p>
+
+            <p className="text-sm text-gray-700">
+              {currentSOS.address ||
+                `${currentSOS.latitude}, ${currentSOS.longitude}`}
+            </p>
+          </div>
+
+          <div>
+            <p className="text-xs text-gray-500">
+              Triggered
+            </p>
+
+            <p className="text-sm text-gray-700">
+              {new Date(
+                currentSOS.createdAt
+              ).toLocaleString()}
+            </p>
+          </div>
+
         </div>
+      ) : (
+        <p className="mt-4 text-sm text-gray-500">
+          No active SOS. You are currently safe.
+        </p>
+      )}
     </div>
-
-    {/* Stats Grid */}
-    <div className="grid grid-cols-2 gap-3">
-
-        {/* Heart Rate */}
-        <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
-        <div className="mb-1 flex items-center gap-1">
-            <span
-            className="material-symbols-outlined text-sm text-red-500"
-            style={{ fontVariationSettings: "'FILL' 1" }}
-            >
-            favorite
-            </span>
-
-            <span className="text-[10px] font-bold uppercase tracking-wide text-gray-500">
-            Heart Rate
-            </span>
-        </div>
-
-        <p className="text-xl font-bold text-gray-900">
-            98 <span className="text-xs font-normal">BPM</span>
-        </p>
-        </div>
-
-        {/* Device Battery */}
-        <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
-        <div className="mb-1 flex items-center gap-1">
-            <span className="material-symbols-outlined text-sm text-blue-600">
-            battery_5_bar
-            </span>
-
-            <span className="text-[10px] font-bold uppercase tracking-wide text-gray-500">
-            Device
-            </span>
-        </div>
-
-        <p className="text-xl font-bold text-gray-900">
-            84%
-        </p>
-        </div>
-
-        {/* Network */}
-        <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
-        <div className="mb-1 flex items-center gap-1">
-            <span className="material-symbols-outlined text-sm text-gray-500">
-            signal_cellular_alt
-            </span>
-
-            <span className="text-[10px] font-bold uppercase tracking-wide text-gray-500">
-            Network
-            </span>
-        </div>
-
-        <p className="text-xl font-bold text-gray-900">
-            LTE+
-        </p>
-        </div>
-
-        {/* Accuracy */}
-        <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
-        <div className="mb-1 flex items-center gap-1">
-            <span className="material-symbols-outlined text-sm text-gray-500">
-            location_searching
-            </span>
-
-            <span className="text-[10px] font-bold uppercase tracking-wide text-gray-500">
-            Accuracy
-            </span>
-        </div>
-
-        <p className="text-xl font-bold text-gray-900">
-            ±2m
-        </p>
-        </div>
-
-    </div>
-    </section>
-
-    </>
-  )
+  );
 }
 
-export default User_Status_Card
+export default User_Status_Card;

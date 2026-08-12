@@ -3,24 +3,19 @@ import React, {
   useContext,
   useState,
 } from "react";
-
 import axios from "axios";
 
 const SOSContext = createContext();
 
 export const SOSProvider = ({ children }) => {
-
   const [activeSOS, setActiveSOS] = useState(null);
-
   const [history, setHistory] = useState([]);
-
   const [loading, setLoading] = useState(false);
 
-  const token = localStorage.getItem("token");
-
-  const headers = {
+  // Always get the latest token
+  const getHeaders = () => ({
     Authorization: `Bearer ${localStorage.getItem("token")}`,
-  };
+  });
 
   //------------------------------------------------
   // Trigger SOS
@@ -32,9 +27,7 @@ export const SOSProvider = ({ children }) => {
     longitude,
     address
   ) => {
-
     try {
-
       setLoading(true);
 
       const res = await axios.post(
@@ -46,48 +39,38 @@ export const SOSProvider = ({ children }) => {
           address,
         },
         {
-          ,
+          headers: getHeaders(),
         }
       );
 
       setActiveSOS(res.data.data);
+      await fetchHistory();
 
       return res.data.data;
-
     } catch (err) {
-
-      console.log(err);
-
+      console.error(err.response?.data?.message || err.message);
     } finally {
-
       setLoading(false);
-
     }
   };
 
   //------------------------------------------------
-  // Get History
+  // Get SOS History
   //------------------------------------------------
 
   const fetchHistory = async () => {
-
     try {
-
       const res = await axios.get(
         "http://localhost:5000/api/sos",
         {
-          headers,
+          headers: getHeaders(),
         }
       );
 
       setHistory(res.data.data);
-
     } catch (err) {
-
-      console.log(err);
-
+      console.error(err.response?.data?.message || err.message);
     }
-
   };
 
   //------------------------------------------------
@@ -95,29 +78,22 @@ export const SOSProvider = ({ children }) => {
   //------------------------------------------------
 
   const cancelSOS = async (id) => {
-
     try {
-
       const res = await axios.put(
         `http://localhost:5000/api/sos/${id}/cancel`,
         {},
         {
-          headers,
+          headers: getHeaders(),
         }
       );
 
       setActiveSOS(null);
-
-      fetchHistory();
+      await fetchHistory();
 
       return res.data;
-
     } catch (err) {
-
-      console.log(err);
-
+      console.error(err.response?.data?.message || err.message);
     }
-
   };
 
   //------------------------------------------------
@@ -125,33 +101,25 @@ export const SOSProvider = ({ children }) => {
   //------------------------------------------------
 
   const resolveSOS = async (id) => {
-
     try {
-
       const res = await axios.put(
         `http://localhost:5000/api/sos/${id}/resolve`,
         {},
         {
-          headers,
+          headers: getHeaders(),
         }
       );
 
       setActiveSOS(null);
-
-      fetchHistory();
+      await fetchHistory();
 
       return res.data;
-
     } catch (err) {
-
-      console.log(err);
-
+      console.error(err.response?.data?.message || err.message);
     }
-
   };
 
   return (
-
     <SOSContext.Provider
       value={{
         activeSOS,
@@ -165,9 +133,7 @@ export const SOSProvider = ({ children }) => {
     >
       {children}
     </SOSContext.Provider>
-
   );
-
 };
 
 export const useSOS = () => useContext(SOSContext);
