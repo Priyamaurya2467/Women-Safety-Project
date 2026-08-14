@@ -26,6 +26,7 @@ const journeyRoutes = require('../src/routes/journeyRoutes')
 const safetyRoutes = require('../src/routes/safetyRoutes')
 const monitoringRoutes = require("../src/routes/monitoringRoutes");
 const vehicleRoutes = require('./routes/vehicleRoutes')
+const evidenceRoute = require('./routes/evidenceRoutes')
 app.use("/api/auth", authRoutes);
 app.use("/api/user",userRoutes);
 app.use("/api/contacts",trustedContactRoutes)
@@ -43,5 +44,5 @@ app.use("/api/journey",journeyRoutes);
 app.use("/api/safety", safetyRoutes);
 app.use('/api/monitor',monitoringRoutes)
 app.use("/api/vehicle",vehicleRoutes)
-
+app.use("/api/evidence",evidenceRoute)
 module.exports = app;
