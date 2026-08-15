@@ -33,14 +33,14 @@ function JourneyPage() {
         <SafetyStatus
           safetyScore={monitoring?.score || 100}
           status={monitoring?.safe ? journey.status: "Unsafe Area"}
-          distanceLeft={journey.remainingDistance}
-          eta={journey.remainingTime}
+          distanceLeft={journey?.remainingDistance}
+          eta={journey?.remainingTime}
         />
 
         <JourneyProgress
           destination={journey.destination}
           currentArea={monitoring?.zone || "Unknown"}
-          distance={journey.distance}
+          distance={journey?.distance}
         />
       </div>
 
@@ -48,8 +48,8 @@ function JourneyPage() {
       <div className="col-span-12 lg:col-span-8">
         <LiveTracking
           currentLocation = {location}
-          destination={journey.destination}
-          route= {journey.route}
+          destination={journey?.destination}
+          route= {journey?.route}
         />
       </div>
       

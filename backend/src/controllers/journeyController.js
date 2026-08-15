@@ -3,12 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 
 const startJourney = async (req, res) => {
   try {
-    const {
-      startLocation,
-      destination,
-      distance,
-      estimatedTime,
-    } = req.body;
+    const { startLocation, destination, distance, estimatedTime } = req.body;
 
     const trackingToken = uuidv4();
 
@@ -19,6 +14,8 @@ const startJourney = async (req, res) => {
       destination,
       distance,
       estimatedTime,
+      status: "active",
+      startedAt: new Date(),
     });
 
     res.status(201).json({
@@ -28,7 +25,36 @@ const startJourney = async (req, res) => {
     });
 
   } catch (error) {
-    console.log(error);
+    console.log("Start Journey Error:", error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+const getActiveJourney = async (req, res) => {
+  try {
+    const journey = await Journey.findOne({
+      user: req.user.id,
+      status: "active",
+    }).sort({ createdAt: -1 });
+
+    if (!journey) {
+      return res.status(404).json({
+        success: false,
+        message: "No active journey found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      journey,
+    });
+
+  } catch (error) {
+    console.error("Get active journey error:", error);
 
     res.status(500).json({
       success: false,
@@ -39,10 +65,11 @@ const startJourney = async (req, res) => {
 
 const endJourney = async (req, res) => {
   try {
+
     const journey = await Journey.findOne({
-      _id:req.params.id,
-      user: req.user.id
-    })
+      _id: req.params.id,
+      user: req.user.id,
+    });
 
     if (!journey) {
       return res.status(404).json({
@@ -62,6 +89,9 @@ const endJourney = async (req, res) => {
     });
 
   } catch (error) {
+
+    console.log("End Journey Error:", error);
+
     res.status(500).json({
       success: false,
       message: error.message,
@@ -69,7 +99,9 @@ const endJourney = async (req, res) => {
   }
 };
 
+
 module.exports = {
   startJourney,
+  getActiveJourney,
   endJourney,
 };

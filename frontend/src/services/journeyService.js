@@ -12,7 +12,6 @@ export const startJourney=async(data)=>{
 
 };
 
-
 export const endJourney=async(id)=>{
 
     const res=await axios.put(`${API}/end/${id}`, {},{

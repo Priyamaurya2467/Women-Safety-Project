@@ -13,7 +13,6 @@ import Family_Dashboard from './components/Family_Dashboard'
 import ProtectedRoute from './components/ProtectedRoutes'
 import Profile_Page from './components/Profile_Page'
 import TrustedContact from './components/Pages/TrustedContact/TrustedContact'
-
 import JourneyPage from './components/Pages/JourneyPage'
 function App() {
   return (
@@ -32,6 +31,9 @@ function App() {
       <Route path='/sos-center' element={
         <ProtectedRoute><SOS_Centre/></ProtectedRoute>
       } />
+      <Route path="/journey" element={
+        <ProtectedRoute><JourneyPage/></ProtectedRoute>
+      }/>
       <Route path='/safe-journey' element={
         <ProtectedRoute><Safe_Journey/></ProtectedRoute>
       } />

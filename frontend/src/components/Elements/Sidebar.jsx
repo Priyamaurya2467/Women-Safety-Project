@@ -96,19 +96,14 @@ function Sidebar() {
 
           <div className='flex flex-col h-35 justify-between'>
 
-          <a
-            href="#"
-            className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-purple-50 transition-colors duration-300"
-          >
-            <ChartColumn className="w-5 h-5 flex-shrink-0" />
-            <span className="text-xs">Admin Analytics</span>
-          </a>
+        
 
-          <button
+          <Link
+            to="/sos-center"
             className="w-full bg-red-400 hover:bg-red-600 transition-colors duration-1000 text-white font-semibold py-3 rounded-xl mb-4"
           >
             Trigger SOS
-          </button>
+          </Link>
 
         </div>
       

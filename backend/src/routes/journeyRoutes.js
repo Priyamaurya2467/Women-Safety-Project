@@ -1,11 +1,24 @@
-const express = require('express')
-const {startJourney,endJourney} = require('../controllers/journeyController.js')
+const express = require("express");
+const router = express.Router();
 
-const authMiddleware = require('../middleware/authMiddleware.js')
-const router=express.Router();
+const {
+  startJourney,
+  getActiveJourney,
+  endJourney,
+} = require("../controllers/journeyController");
 
+const authMiddleware = require("../middleware/authMiddleware");
+
+
+// Start journey
 router.post("/start",authMiddleware,startJourney);
 
+
+// Get active journey
+router.get("/active",authMiddleware,getActiveJourney);
+
+// End journey
 router.put("/end/:id",authMiddleware,endJourney);
 
-module.exports = router
+
+module.exports = router;
