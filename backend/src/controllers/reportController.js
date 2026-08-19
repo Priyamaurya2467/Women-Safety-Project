@@ -1,6 +1,6 @@
 const { default: mongoose } = require('mongoose')
 const reportModel = require('../models/CommunityReport')
-const { data } = require('react-router-dom')
+
 
 const createIncident = async(req,res) => {
     try{

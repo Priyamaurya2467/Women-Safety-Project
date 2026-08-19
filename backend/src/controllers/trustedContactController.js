@@ -1,4 +1,4 @@
-const { data } = require('react-router-dom');
+
 const trustedContact = require('../models/TrustedContact')
 
 

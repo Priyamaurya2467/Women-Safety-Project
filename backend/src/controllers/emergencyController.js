@@ -1,4 +1,4 @@
-const { data } = require('react-router-dom');
+
 const EmergencyAlert = require('../models/EmergencyAlertSchema')
 const trustedcontacts = require('../models/TrustedContact')
 

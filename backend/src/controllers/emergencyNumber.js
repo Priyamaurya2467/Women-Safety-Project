@@ -1,4 +1,4 @@
-const { data } = require("react-router-dom");
+
 const TrustedContact = require("../models/TrustedContact")
 
 const emergencyNumber = async(req,res) => {

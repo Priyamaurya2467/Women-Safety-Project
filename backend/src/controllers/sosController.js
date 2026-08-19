@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const sosModel = require('../models/SOS')
 const TrustedContactModel = require('../models/TrustedContact');
 const { MessageCircleOff } = require('lucide-react');
-const { data } = require('react-router-dom');
+
 
 const triggerSOS = async(req,res) => {
     try{

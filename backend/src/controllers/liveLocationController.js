@@ -1,4 +1,4 @@
-const { data } = require('react-router-dom');
+
 const LiveLocation = require('../models/LiveLocation')
 
 
