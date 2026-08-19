@@ -41,7 +41,7 @@ function ChatArea() {
     try{
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:5000/api/ai/chat",
+        "https://safeher-backend-0hzz.onrender.com/api/ai/chat",
         {
           message: text,
         },

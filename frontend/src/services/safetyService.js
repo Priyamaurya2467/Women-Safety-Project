@@ -4,7 +4,7 @@ export const getSafetyAreas = async()=>{
 
 const res = await axios.get(
 
-"http://localhost:5000/api/safety"
+"https://safeher-backend-0hzz.onrender.com/api/safety"
 
 );
 

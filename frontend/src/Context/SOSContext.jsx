@@ -61,7 +61,7 @@ export const SOSProvider = ({ children }) => {
   const fetchHistory = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/sos",
+        "https://safeher-backend-0hzz.onrender.com/api/sos",
         {
           headers: getHeaders(),
         }
@@ -80,7 +80,7 @@ export const SOSProvider = ({ children }) => {
   const cancelSOS = async (id) => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/sos/${id}/cancel`,
+        `https://safeher-backend-0hzz.onrender.com/api/sos/${id}/cancel`,
         {},
         {
           headers: getHeaders(),
@@ -103,7 +103,7 @@ export const SOSProvider = ({ children }) => {
   const resolveSOS = async (id) => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/sos/${id}/resolve`,
+        `https://safeher-backend-0hzz.onrender.com/api/sos/${id}/resolve`,
         {},
         {
           headers: getHeaders(),

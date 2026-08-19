@@ -9,7 +9,7 @@ import EvidenceUpload from "./Pages/Sos Center/EvidenceUpload";
 import { useTrustedContacts } from "../Context/TrustedContactContext";
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/sos";
+const API_URL = "https://safeher-backend-0hzz.onrender.com/api/sos";
 
 function SOS_Centre() {
   const [sosHistory, setSosHistory] = useState([]);
@@ -210,7 +210,7 @@ function SOS_Centre() {
     try{
       const token = localStorage.getItem("token");
 
-      const response = await axios.get("http://localhost:5000/api/emergency-number",{
+      const response = await axios.get("https://safeher-backend-0hzz.onrender.com/api/emergency-number",{
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API="http://localhost:5000/api/journey";
+const API="https://safeher-backend-0hzz.onrender.com/api/journey";
 
 export const startJourney=async(data)=>{
 

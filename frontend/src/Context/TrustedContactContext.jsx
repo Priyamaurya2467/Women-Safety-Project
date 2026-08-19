@@ -8,7 +8,7 @@ export const TrustedContactProvider = ({ children }) => {
 
   const fetchContacts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/contacts", {
+      const res = await axios.get("https://safeher-backend-0hzz.onrender.com/api/contacts", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

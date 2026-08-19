@@ -15,7 +15,7 @@ import Information from "./Pages/Safe Journey/Information";
 import Insights_Area from "./Pages/Safe Journey/Insights_Area";
 import Recents from "./Pages/Safe Journey/Recents";
 import { useNavigate } from "react-router-dom";
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://safeher-backend-0hzz.onrender.com/api";
 
 function Safe_Journey() {
   const [journey, setJourney] = useState(null);

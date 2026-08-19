@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = "http://localhost:5000/api/user/profile";
+const api = "https://safeher-backend-0hzz.onrender.com/api/user/profile";
 
 export const getProfile = async() =>{
     const token = localStorage.getItem("token");

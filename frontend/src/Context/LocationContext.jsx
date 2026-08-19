@@ -49,7 +49,7 @@ const initialLocation = {
 try {
 
 await axios.post(
-"http://localhost:5000/api/location/start",
+"https://safeher-backend-0hzz.onrender.com/api/location/start",
 {
  latitude:initialLocation.latitude,
  longitude:initialLocation.longitude

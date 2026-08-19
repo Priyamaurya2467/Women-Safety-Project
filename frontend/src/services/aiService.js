@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: "http://localhost:5000/api/ai"
+    baseURL: "https://safeher-backend-0hzz.onrender.com/api/ai"
 });
 
 export const askAI = async (message) => {
