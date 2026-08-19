@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/evidence";
+const API_URL = "https://safeher-backend-0hzz.onrender.com/api/evidence";
 
 function EvidenceUpload({ currentSos }) {
   const fileInputRef = useRef(null);

@@ -84,7 +84,7 @@ watchId.current = navigator.geolocation.watchPosition(
 
     setMonitoring(rest.data)
 
-    await axios.post("http://localhost:5000/api/location/update",updatedLocation,{
+    await axios.post("https://safeher-backend-0hzz.onrender.com/api/location/update",updatedLocation,{
       headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
     })
   },
@@ -149,7 +149,7 @@ reject(error);
 
   try {
     await axios.post(
-      "http://localhost:5000/api/location/stop",
+      "https://safeher-backend-0hzz.onrender.com/api/location/stop",
       {},
       {
         headers: {
@@ -165,7 +165,7 @@ reject(error);
   const fetchLocation = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/location",
+        "https://safeher-backend-0hzz.onrender.com/api/location",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

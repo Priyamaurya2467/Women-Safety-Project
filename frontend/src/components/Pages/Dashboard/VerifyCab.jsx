@@ -19,7 +19,7 @@ function VerifyCab() {
       setLoading(true);
 
       const res = await axios.post(
-        "http://localhost:5000/api/vehicle/verify",
+        "https://safeher-backend-0hzz.onrender.com/api/vehicle/verify",
         {
           plateNumber: vehicleNumber.trim().toUpperCase(),
         }

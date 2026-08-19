@@ -36,7 +36,7 @@ const TrustedContacts = () => {
 
     if (isEditing) {
       res = await axios.put(
-        `http://localhost:5000/api/contacts/${editingId}`,
+        `https://safeher-backend-0hzz.onrender.com/api/contacts/${editingId}`,
         formData,
         {
           headers: {
@@ -46,7 +46,7 @@ const TrustedContacts = () => {
       );
     } else {
       res = await axios.post(
-        "http://localhost:5000/api/contacts",
+        "https://safeher-backend-0hzz.onrender.com/api/contacts",
         formData,
         {
           headers: {
@@ -85,7 +85,7 @@ const TrustedContacts = () => {
 
   try {
     await axios.delete(
-      `http://localhost:5000/api/contacts/${id}`,
+      `https://safeher-backend-0hzz.onrender.com/api/contacts/${id}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

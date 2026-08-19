@@ -31,7 +31,7 @@ export const SOSProvider = ({ children }) => {
       setLoading(true);
 
       const res = await axios.post(
-        "http://localhost:5000/api/sos",
+        "https://safeher-backend-0hzz.onrender.com/api/sos",
         {
           emergencyType,
           latitude,

@@ -28,7 +28,7 @@ function Form() {
 
     try{
       const res = await axios.post(
-        "http://localhost:5000/api/auth/login",loginData
+        "https://safeher-backend-0hzz.onrender.com/api/auth/login",loginData
       );
       console.log(res.data)
       localStorage.setItem("token",res.data.token);
