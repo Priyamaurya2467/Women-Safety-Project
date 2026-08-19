@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const sosModel = require('../models/SOS')
 const TrustedContactModel = require('../models/TrustedContact');
-const { MessageCircleOff } = require('lucide-react');
+
 
 
 const triggerSOS = async(req,res) => {
